@@ -56,6 +56,13 @@ class qa_html_theme_layer extends qa_html_theme_base {
 
 	private function shouldShowPopup(){
 
+                $blackList = array('/ask', '/login', '/reset');
+                $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+                if(in_array($path, $blackList)) {
+			return false;
+                }
+
 		if(qa_is_logged_in()) {
 			return false;
 		}
