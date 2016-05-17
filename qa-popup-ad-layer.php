@@ -27,7 +27,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				width : 320,
 				height: 300
 			});
-			popup.open('" . qa_opt('q2a-popup-ad-html') . "', 'html');
+			popup.open('" . qa_opt('qa-popup-ad-html') . "', 'html');
 		});
 		</script>");
 	}

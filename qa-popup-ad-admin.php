@@ -1,11 +1,11 @@
 <?php
-class q2a_popup_ad_admin {
+class qa_popup_ad_admin {
 	function init_queries($tableslc) {
 		return null;
 	}
 	function option_default($option) {
 		switch($option) {
-			case 'q2a-popup-ad-html':
+			case 'qa-popup-ad-html':
 				return ''; 
 			default:
 				return null;
@@ -19,8 +19,8 @@ class q2a_popup_ad_admin {
 	function admin_form(&$qa_content){                       
 		// process the admin form if admin hit Save-Changes-button
 		$ok = null;
-		if (qa_clicked('q2a-popup-ad-save')) {
-			qa_opt('q2a-popup-ad-html', qa_post_text('q2a-popup-ad-html'));
+		if (qa_clicked('qa-popup-ad-save')) {
+			qa_opt('qa-popup-ad-html', qa_post_text('qa-popup-ad-html'));
 			$ok = qa_lang('admin/options_saved');
 		}
 		
@@ -30,8 +30,8 @@ class q2a_popup_ad_admin {
 		$fields[] = array(
 			'type' => 'textarea',
 			'label' => 'html',
-			'tags' => 'name="q2a-popup-ad-html"',
-			'value' => qa_opt('q2a-popup-ad-html'),
+			'tags' => 'name="qa-popup-ad-html"',
+			'value' => qa_opt('qa-popup-ad-html'),
 		);
 
 		return array(     
@@ -40,7 +40,7 @@ class q2a_popup_ad_admin {
 			'buttons' => array(
 				array(
 					'label' => qa_lang_html('main/save_button'),
-					'tags' => 'name="q2a-popup-ad-save"',
+					'tags' => 'name="qa-popup-ad-save"',
 				),
 			),
 		);

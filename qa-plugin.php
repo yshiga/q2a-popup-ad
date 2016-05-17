@@ -19,4 +19,4 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 }
 
 qa_register_plugin_layer('qa-popup-ad-layer.php', 'POPUP ADD');	
-qa_register_plugin_module('module', 'q2a-popup-ad-admin.php', 'q2a_popup_ad_admin', 'popup_ad');
+qa_register_plugin_module('module', 'qa-popup-ad-admin.php', 'qa_popup_ad_admin', 'popup_ad');
