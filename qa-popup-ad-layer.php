@@ -20,7 +20,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			return;
 		} 
 
-		$this->output('<script type="text/javascript" src="'. qa_opt('site_url') . $this->plugin_url.'popup.js"></script>');
+		$this->output('<script type="text/javascript" src="'. qa_opt('site_url') . $this->plugin_url.'/vender/popup.js"></script>');
 		$this->output("<script>
 		$(window).load(function () {
 			var popup = new $.Popup({
