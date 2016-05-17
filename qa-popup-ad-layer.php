@@ -1,33 +1,35 @@
 <?php
-class qa_html_theme_layer extends qa_html_theme_base {
 
-	var $plugin_url;
+class qa_html_theme_layer extends qa_html_theme_base
+{
+    public $plugin_url;
 
+    // needed to get the plugin url
+    public function qa_html_theme_layer($template, $content, $rooturl, $request)
+    {
+        qa_html_theme_base::qa_html_theme_base($template, $content, $rooturl, $request);
+        if (!$this->shouldShowPopup()) {
+            return;
+        }
+        global $qa_layers;
+        $this->plugin_url = $qa_layers['POPUP ADD']['urltoroot'];
+    }
 
-	// needed to get the plugin url
-	function qa_html_theme_layer($template, $content, $rooturl, $request)
-	{
-		qa_html_theme_base::qa_html_theme_base($template, $content, $rooturl, $request);
-		if(!$this->shouldShowPopup()) {
-			return;
-		}
-		global $qa_layers;
-		$this->plugin_url = $qa_layers['POPUP ADD']['urltoroot'];
-	}
+    public function head_script()
+    {
+        // insert Javascript into the <head>
+    qa_html_theme_base::head_script();
+        if (!$this->shouldShowPopup()) {
+            return;
+        }
 
-	function head_script() {// insert Javascript into the <head>
-  	qa_html_theme_base::head_script();
-		if(!$this->shouldShowPopup()) {
-			return;
-		}
+        $library_src = qa_opt('site_url').$this->plugin_url.'/vender/popup.js';
+        $this->output('<script type="text/javascript" src="'.$library_src.'"></script>');
 
-		$library_src = qa_opt('site_url') . $this->plugin_url . '/vender/popup.js';
-		$this->output('<script type="text/javascript" src="'. $library_src . '"></script>');
+        $html = qa_opt('qa-popup-ad-html');
+        $html = preg_replace(array('/\r\n/', '/\r/', '/\n/'), '', $html); // remove line break
 
-		$html = qa_opt('qa-popup-ad-html');
-		$html = preg_replace(array('/\r\n/','/\r/','/\n/'), '', $html); // remove line break
-
-		$js = <<<"EOT"
+        $js = <<<"EOT"
 <script>
 $(window).load(function () {
 	var popup = new $.Popup({
@@ -39,18 +41,18 @@ $(window).load(function () {
 </script>
 EOT;
 
-		$this->output($js);
-	}
+        $this->output($js);
+    }
 
-	function head_css() {
+    public function head_css()
+    {
+        qa_html_theme_base::head_css();
 
-		qa_html_theme_base::head_css();
+        if (!$this->shouldShowPopup()) {
+            return;
+        }
 
-		if(!$this->shouldShowPopup()) {
-			return;
-		}
-
-		$css = <<<"EOT"
+        $css = <<<"EOT"
 <style>
 /*------------------------------- POPUP.CSS -------------------------------*/
 .popup_back {
@@ -100,50 +102,51 @@ div.popup {
 </style>
 EOT;
 
-		$this->output($css);
-	}
+        $this->output($css);
+    }
 
-	function head_custom() {
-		qa_html_theme_base::head_custom();
-	}
+    public function head_custom()
+    {
+        qa_html_theme_base::head_custom();
+    }
 
-	private function shouldShowPopup(){
+    private function shouldShowPopup()
+    {
+        $blackList = array('/ask', '/login', '/reset');
+        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-		$blackList = array('/ask', '/login', '/reset');
-  	$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        if (in_array($path, $blackList)) {
+            return false;
+        }
 
-  	if(in_array($path, $blackList)) {
-			return false;
-  	}
+        if (qa_is_logged_in()) {
+            return false;
+        }
 
-		if(qa_is_logged_in()) {
-			return false;
-		}
+        if ($this->isJustLand()) {
+            return true;
+        }
 
-		if($this->isJustLand()) {
-			return true;
-		}
+        return false;
+    }
 
-		return false;
-	}
+    private function isJustLand()
+    {
+        $referer = $_SERVER['HTTP_REFERER'];
 
-	private function isJustLand(){
+        // no referer
+        if (empty($referer)) {
+            return true;
 
-		$referer = $_SERVER['HTTP_REFERER'];
-
-		// no referer
-		if(empty($referer)) {
-			return true;
-
-			// referer
-		} else {
-			$url = parse_url($referer);
-			$siteUrl = parse_url(qa_opt('site_url'));
-			if($url['host'] != $siteUrl['host']){
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
+            // referer
+        } else {
+            $url = parse_url($referer);
+            $siteUrl = parse_url(qa_opt('site_url'));
+            if ($url['host'] != $siteUrl['host']) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 }
