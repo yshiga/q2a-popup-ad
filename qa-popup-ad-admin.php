@@ -26,7 +26,7 @@ class qa_popup_ad_admin
 		// process the admin form if admin hit Save-Changes-button
 		$ok = null;
 		if (qa_clicked('qa-popup-ad-save')) {
-			qa_opt('qa_popup_ad_only_first_page', (bool)qa_post_text('qa_popup_ad_only_first_page'));
+			qa_opt('qa_popup_ad_only_first_access', (bool)qa_post_text('qa_popup_ad_only_first_access'));
 			qa_opt('qa_popup_ad_show_logged_in', (bool)qa_post_text('qa_popup_ad_show_logged_in'));
 			qa_opt('qa_popup_ad_scroll_percentage', qa_post_text('qa_popup_ad_scroll_percentage'));
 			qa_opt('qa_popup_ad_box_width', qa_post_text('qa_popup_ad_box_width'));
@@ -44,10 +44,10 @@ class qa_popup_ad_admin
 		$fields = array();
 
 		$fields[] = array(
-			'label' => 'Show only the first page',
+			'label' => 'Show only the first access',
 			'type' => 'checkbox',
-			'value' => qa_opt('qa_popup_ad_only_first_page'),
-			'tags' => 'name="qa_popup_ad_only_first_page"',
+			'value' => qa_opt('qa_popup_ad_only_first_access'),
+			'tags' => 'name="qa_popup_ad_only_first_access"',
 		);
 
 		$fields[] = array(
@@ -60,7 +60,7 @@ class qa_popup_ad_admin
 		$fields[] = array(
 			'label' => 'Scroll:',
 			'type' => 'number',
-			'suffix' => '%(1-100)',
+			'suffix' => '%(0-100)',
 			'value' => qa_opt('qa_popup_ad_scroll_percentage'),
 			'tags' => 'name="qa_popup_ad_scroll_percentage"',
 		);

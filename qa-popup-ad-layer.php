@@ -26,17 +26,43 @@ class qa_html_theme_layer extends qa_html_theme_base
         $library_src = qa_opt('site_url').$this->plugin_url.'/vender/popup.js';
         $this->output('<script type="text/javascript" src="'.$library_src.'"></script>');
 
-        $html = qa_opt('qa-popup-ad-html');
+		$index = mt_rand(1, 4);
+        $html = qa_opt('qa_popup_ad_html_' . $index);
         $html = preg_replace(array('/\r\n/', '/\r/', '/\n/'), '', $html); // remove line break
 
+		$box_width = (int)qa_opt('qa_popup_ad_box_width');
+		if (!is_numeric($box_width) || $box_width <= 0) {
+			$box_width = 320;
+		}
+		$box_height = (int)qa_opt('qa_popup_ad_box_height');
+		if (!is_numeric($box_height) || $box_height <= 0) {
+			$box_height = 300;
+		}
+		$percentage = (int)qa_opt('qa_popup_ad_scroll_percentage');
         $js = <<<"EOT"
 <script>
-$(window).load(function () {
+$(document).ready(function () {
 	var popup = new $.Popup({
-		width : 320,
-		height: 300
+		width : {$box_width},
+		height: {$box_height}
 	});
-	popup.open('$html', 'html');
+	percentage = {$percentage}
+	popupflg = false;
+	if (percentage <= 0) {
+		popup.open('$html', 'html');
+		popupflg = true;
+	}
+	$(window).scroll(function (e) {
+		var window = $(e.currentTarget),
+		scrollTop = window.scrollTop(),
+		documentHeight = $(document).height();
+		scrollHeight = documentHeight * (percentage / 100)
+
+		if ( !popupflg && scrollHeight <= scrollTop) {
+			popup.open('$html', 'html');
+			popupflg = true;
+		}
+	});
 });
 </script>
 EOT;
@@ -112,16 +138,21 @@ EOT;
 
     private function shouldShowPopup()
     {
-        $blackList = array('/ask', '/login', '/reset');
+        // $blackList = array('/ask', '/login', '/reset');
+        $blackList = explode("\n", qa_opt('qa_popup_ad_exclude_pages'));
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         if (in_array($path, $blackList)) {
             return false;
         }
 
-        if (qa_is_logged_in()) {
+        if ( !(bool)qa_opt('qa_popup_ad_show_logged_in') && qa_is_logged_in() ) {
             return false;
         }
+
+		if ( !(bool)qa_opt('qa_popup_ad_only_first_access') ) {
+			return true;
+		}
 
         if ($this->isJustLand()) {
             return true;
