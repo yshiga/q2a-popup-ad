@@ -44,21 +44,21 @@ class qa_popup_ad_admin
 		$fields = array();
 
 		$fields[] = array(
-			'label' => 'Show only the first access',
+			'label' => qa_lang('qa_popup_ad_lang/show_only_first'),
 			'type' => 'checkbox',
 			'value' => qa_opt('qa_popup_ad_only_first_access'),
 			'tags' => 'name="qa_popup_ad_only_first_access"',
 		);
 
 		$fields[] = array(
-			'label' => 'Show popup the user has logged in',
+			'label' => qa_lang('qa_popup_ad_lang/show_logged_in'),
 			'type' => 'checkbox',
 			'value' => qa_opt('qa_popup_ad_show_logged_in'),
 			'tags' => 'name="qa_popup_ad_show_logged_in"',
 		);
 
 		$fields[] = array(
-			'label' => 'Scroll:',
+			'label' => qa_lang('qa_popup_ad_lang/scroll'),
 			'type' => 'number',
 			'suffix' => '%(0-100)',
 			'value' => qa_opt('qa_popup_ad_scroll_percentage'),
@@ -66,44 +66,48 @@ class qa_popup_ad_admin
 		);
 
 		$fields[] = array(
-			'label' => 'Popup Box Width:',
+			'label' => qa_lang('qa_popup_ad_lang/popup_width'),
 			'type' => 'number',
 			'value' => (int)qa_opt('qa_popup_ad_box_width'),
-			'suffix' => 'pixels',
+			'suffix' => qa_lang('qa_popup_ad_lang/pixels'),
 			'tags' => 'name="qa_popup_ad_box_width"',
 		);
 
 		$fields[] = array(
-			'label' => 'Popup Box Height:',
+			'label' => qa_lang('qa_popup_ad_lang/popup_height'),
 			'type' => 'number',
 			'value' => (int)qa_opt('qa_popup_ad_box_height'),
-			'suffix' => 'pixels',
+			'suffix' => qa_lang('qa_popup_ad_lang/pixels'),
 			'tags' => 'name="qa_popup_ad_box_height"',
 		);
-
+		$tmplabel = qa_lang('qa_popup_ad_lang/content_html');
+		$label = strtr($tmplabel, array( '^1' => '1' ));
 		$fields[] = array(
-			'label' => 'Content HTML 1:',
+			'label' => $label,
 			'type' => 'textarea',
 			'value' => qa_opt('qa_popup_ad_html_1'),
 			'tags' => 'name="qa_popup_ad_html_1"',
 			'rows' => 2,
 		);
+		$label = strtr($tmplabel, array( '^1' => '2' ));
 		$fields[] = array(
-			'label' => 'Content HTML 2:',
+			'label' => $label,
 			'type' => 'textarea',
 			'value' => qa_opt('qa_popup_ad_html_2'),
 			'tags' => 'name="qa_popup_ad_html_2"',
 			'rows' => 2,
 		);
+		$label = strtr($tmplabel, array( '^1' => '3' ));
 		$fields[] = array(
-			'label' => 'Content HTML 3:',
+			'label' => $label,
 			'type' => 'textarea',
 			'value' => qa_opt('qa_popup_ad_html_3'),
 			'tags' => 'name="qa_popup_ad_html_3"',
 			'rows' => 2,
 		);
+		$label = strtr($tmplabel, array( '^1' => '4' ));
 		$fields[] = array(
-			'label' => 'Content HTML 4:',
+			'label' => $label,
 			'type' => 'textarea',
 			'value' => qa_opt('qa_popup_ad_html_4'),
 			'tags' => 'name="qa_popup_ad_html_4"',
@@ -111,7 +115,7 @@ class qa_popup_ad_admin
 		);
 
 		$fields[] = array(
-			'label' => 'Exclude Pages(separated by a line break):',
+			'label' => qa_lang('qa_popup_ad_lang/exclude_page'),
 			'type' => 'textarea',
 			'value' => qa_opt('qa_popup_ad_exclude_pages'),
 			'tags' => 'name="qa_popup_ad_exclude_pages"',
