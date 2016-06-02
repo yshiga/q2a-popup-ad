@@ -2,33 +2,40 @@
 
 class qa_html_theme_layer extends qa_html_theme_base
 {
-    public $plugin_url;
+	public $plugin_url;
 
-    // needed to get the plugin url
-    public function qa_html_theme_layer($template, $content, $rooturl, $request)
-    {
-        qa_html_theme_base::qa_html_theme_base($template, $content, $rooturl, $request);
-        if (!$this->shouldShowPopup()) {
-            return;
-        }
-        global $qa_layers;
-        $this->plugin_url = $qa_layers['POPUP ADD']['urltoroot'];
-    }
+	// needed to get the plugin url
+	public function qa_html_theme_layer($template, $content, $rooturl, $request)
+	{
+		qa_html_theme_base::qa_html_theme_base($template, $content, $rooturl, $request);
+		if (!$this->shouldShowPopup()) {
+			return;
+		}
+		global $qa_layers;
+		$this->plugin_url = $qa_layers['POPUP ADD']['urltoroot'];
+	}
 
-    public function head_script()
-    {
-        // insert Javascript into the <head>
-    qa_html_theme_base::head_script();
-        if (!$this->shouldShowPopup()) {
-            return;
-        }
+	public function head_script()
+	{
+		// insert Javascript into the <head>
+	qa_html_theme_base::head_script();
+		if (!$this->shouldShowPopup()) {
+			return;
+		}
 
-        $library_src = qa_opt('site_url').$this->plugin_url.'/vender/popup.js';
-        $this->output('<script type="text/javascript" src="'.$library_src.'"></script>');
+		$library_src = qa_opt('site_url').$this->plugin_url.'/vender/popup.js';
+		$this->output('<script type="text/javascript" src="'.$library_src.'"></script>');
 
-		$index = mt_rand(1, 4);
-        $html = qa_opt('qa_popup_ad_html_' . $index);
-        $html = preg_replace(array('/\r\n/', '/\r/', '/\n/'), '', $html); // remove line break
+		$htmls = array();
+		for ( $i = 1; $i <= 4; $i++ ) {
+			$tmp = qa_opt('qa_popup_ad_html_' . $i);
+			if (!empty($tmp)) {
+				$htmls[] = $tmp;
+			}
+		}
+		$index = mt_rand(0, count($htmls) - 1);
+		$html = $htmls[$index];
+		$html = preg_replace(array('/\r\n/', '/\r/', '/\n/'), '', $html); // remove line break
 
 		$box_width = (int)qa_opt('qa_popup_ad_box_width');
 		if (!is_numeric($box_width) || $box_width <= 0) {
@@ -39,7 +46,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 			$box_height = 300;
 		}
 		$percentage = (int)qa_opt('qa_popup_ad_scroll_percentage');
-        $js = <<<"EOT"
+		$js = <<<"EOT"
 <script>
 $(document).ready(function () {
 	var popup = new $.Popup({
@@ -67,18 +74,18 @@ $(document).ready(function () {
 </script>
 EOT;
 
-        $this->output($js);
-    }
+		$this->output($js);
+	}
 
-    public function head_css()
-    {
-        qa_html_theme_base::head_css();
+	public function head_css()
+	{
+		qa_html_theme_base::head_css();
 
-        if (!$this->shouldShowPopup()) {
-            return;
-        }
+		if (!$this->shouldShowPopup()) {
+			return;
+		}
 
-        $css = <<<"EOT"
+		$css = <<<"EOT"
 <style>
 /*------------------------------- POPUP.CSS -------------------------------*/
 .popup_back {
@@ -128,56 +135,56 @@ div.popup {
 </style>
 EOT;
 
-        $this->output($css);
-    }
+		$this->output($css);
+	}
 
-    public function head_custom()
-    {
-        qa_html_theme_base::head_custom();
-    }
+	public function head_custom()
+	{
+		qa_html_theme_base::head_custom();
+	}
 
-    private function shouldShowPopup()
-    {
-        // $blackList = array('/ask', '/login', '/reset');
-        $blackList = explode("\n", qa_opt('qa_popup_ad_exclude_pages'));
-        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+	private function shouldShowPopup()
+	{
+		// $blackList = array('/ask', '/login', '/reset');
+		$blackList = explode("\n", qa_opt('qa_popup_ad_exclude_pages'));
+		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-        if (in_array($path, $blackList)) {
-            return false;
-        }
+		if (in_array($path, $blackList)) {
+			return false;
+		}
 
-        if ( !(bool)qa_opt('qa_popup_ad_show_logged_in') && qa_is_logged_in() ) {
-            return false;
-        }
+		if ( !(bool)qa_opt('qa_popup_ad_show_logged_in') && qa_is_logged_in() ) {
+			return false;
+		}
 
 		if ( !(bool)qa_opt('qa_popup_ad_only_first_access') ) {
 			return true;
 		}
 
-        if ($this->isJustLand()) {
-            return true;
-        }
+		if ($this->isJustLand()) {
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    private function isJustLand()
-    {
-        $referer = $_SERVER['HTTP_REFERER'];
+	private function isJustLand()
+	{
+		$referer = $_SERVER['HTTP_REFERER'];
 
-        // no referer
-        if (empty($referer)) {
-            return true;
+		// no referer
+		if (empty($referer)) {
+			return true;
 
-            // referer
-        } else {
-            $url = parse_url($referer);
-            $siteUrl = parse_url(qa_opt('site_url'));
-            if ($url['host'] != $siteUrl['host']) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
+			// referer
+		} else {
+			$url = parse_url($referer);
+			$siteUrl = parse_url(qa_opt('site_url'));
+			if ($url['host'] != $siteUrl['host']) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 }
