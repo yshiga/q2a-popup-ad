@@ -170,7 +170,7 @@ EOT;
 
 	private function isJustLand()
 	{
-		$referer = $_SERVER['HTTP_REFERER'];
+		$referer = @$_SERVER['HTTP_REFERER'];
 
 		// no referer
 		if (empty($referer)) {
