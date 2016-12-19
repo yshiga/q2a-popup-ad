@@ -9,8 +9,12 @@ class qa_popup_ad_admin
 	public function option_default($option)
 	{
 		switch ($option) {
-			case 'qa-popup-ad-html':
-				return '';
+			case 'qa_popup_ad_only_first_access':
+				return true;
+			case 'qa_popup_ad_show_logged_in':
+				return true;
+			case 'qa_popup_ad_scroll_percentage':
+				return 0;
 			default:
 				return;
 		}
@@ -29,14 +33,6 @@ class qa_popup_ad_admin
 			qa_opt('qa_popup_ad_only_first_access', (bool)qa_post_text('qa_popup_ad_only_first_access'));
 			qa_opt('qa_popup_ad_show_logged_in', (bool)qa_post_text('qa_popup_ad_show_logged_in'));
 			qa_opt('qa_popup_ad_scroll_percentage', qa_post_text('qa_popup_ad_scroll_percentage'));
-			qa_opt('qa_popup_ad_box_width', qa_post_text('qa_popup_ad_box_width'));
-			qa_opt('qa_popup_ad_box_height', qa_post_text('qa_popup_ad_box_height'));
-			qa_opt('qa_popup_ad_html_1', qa_post_text('qa_popup_ad_html_1'));
-			qa_opt('qa_popup_ad_html_2', qa_post_text('qa_popup_ad_html_2'));
-			qa_opt('qa_popup_ad_html_3', qa_post_text('qa_popup_ad_html_3'));
-			qa_opt('qa_popup_ad_html_4', qa_post_text('qa_popup_ad_html_4'));
-			qa_opt('qa_popup_ad_exclude_pages', qa_post_text('qa_popup_ad_exclude_pages'));
-			// qa_opt('qa-popup-ad-html', qa_post_text('qa-popup-ad-html'));
 			$ok = qa_lang('admin/options_saved');
 		}
 
@@ -64,70 +60,6 @@ class qa_popup_ad_admin
 			'value' => qa_opt('qa_popup_ad_scroll_percentage'),
 			'tags' => 'name="qa_popup_ad_scroll_percentage"',
 		);
-
-		$fields[] = array(
-			'label' => qa_lang('qa_popup_ad_lang/popup_width'),
-			'type' => 'number',
-			'value' => (int)qa_opt('qa_popup_ad_box_width'),
-			'suffix' => qa_lang('qa_popup_ad_lang/pixels'),
-			'tags' => 'name="qa_popup_ad_box_width"',
-		);
-
-		$fields[] = array(
-			'label' => qa_lang('qa_popup_ad_lang/popup_height'),
-			'type' => 'number',
-			'value' => (int)qa_opt('qa_popup_ad_box_height'),
-			'suffix' => qa_lang('qa_popup_ad_lang/pixels'),
-			'tags' => 'name="qa_popup_ad_box_height"',
-		);
-		$tmplabel = qa_lang('qa_popup_ad_lang/content_html');
-		$label = strtr($tmplabel, array( '^1' => '1' ));
-		$fields[] = array(
-			'label' => $label,
-			'type' => 'textarea',
-			'value' => qa_opt('qa_popup_ad_html_1'),
-			'tags' => 'name="qa_popup_ad_html_1"',
-			'rows' => 2,
-		);
-		$label = strtr($tmplabel, array( '^1' => '2' ));
-		$fields[] = array(
-			'label' => $label,
-			'type' => 'textarea',
-			'value' => qa_opt('qa_popup_ad_html_2'),
-			'tags' => 'name="qa_popup_ad_html_2"',
-			'rows' => 2,
-		);
-		$label = strtr($tmplabel, array( '^1' => '3' ));
-		$fields[] = array(
-			'label' => $label,
-			'type' => 'textarea',
-			'value' => qa_opt('qa_popup_ad_html_3'),
-			'tags' => 'name="qa_popup_ad_html_3"',
-			'rows' => 2,
-		);
-		$label = strtr($tmplabel, array( '^1' => '4' ));
-		$fields[] = array(
-			'label' => $label,
-			'type' => 'textarea',
-			'value' => qa_opt('qa_popup_ad_html_4'),
-			'tags' => 'name="qa_popup_ad_html_4"',
-			'rows' => 2,
-		);
-
-		$fields[] = array(
-			'label' => qa_lang('qa_popup_ad_lang/exclude_page'),
-			'type' => 'textarea',
-			'value' => qa_opt('qa_popup_ad_exclude_pages'),
-			'tags' => 'name="qa_popup_ad_exclude_pages"',
-			'rows' => 4,
-			'cols' => 15,
-		);
-		// $fields[] = array(
-		// 	'type' => 'textarea',
-		// 	'label' => 'html',
-		// 	'tags' => 'name="qa-popup-ad-html"',
-		// 	'value' => qa_opt('qa-popup-ad-html'),
-		// );
 
 		return array(
 			'ok' => ($ok && !isset($error)) ? $ok : null,
