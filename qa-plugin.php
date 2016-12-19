@@ -15,6 +15,8 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
     header('Location: ../../');
     exit;
 }
+
+define( 'POPAD_DIR', dirname( __FILE__ ) );
 // language file
 qa_register_plugin_phrases('qa-popup-ad-lang-*.php', 'qa_popup_ad_lang');
 // layer
