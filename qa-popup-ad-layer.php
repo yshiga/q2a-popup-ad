@@ -19,6 +19,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 	{
 		// insert Javascript into the <head>
 		qa_html_theme_base::head_script();
+
 		if (!$this->shouldShowPopup()) {
 			return;
 		}
@@ -29,8 +30,8 @@ class qa_html_theme_layer extends qa_html_theme_base
 		$html = str_replace(PHP_EOL, '', $html);
 		$params = array(
 			'^html' => $html,
-			'^box_width' => '200',
-			'^box_height' => '200',
+			'^box_width' => '700',
+			'^box_height' => '430',
 			'^percentage' => 0
 		);
 		$js = strtr($js, $params);
@@ -55,6 +56,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 
 	private function shouldShowPopup()
 	{
+		return true;
 		$blackList = array('/ask', '/login', '/reset');
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
