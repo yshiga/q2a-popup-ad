@@ -56,7 +56,6 @@ class qa_html_theme_layer extends qa_html_theme_base
 
 	private function shouldShowPopup()
 	{
-		return true;
 		$blackList = array('/ask', '/login', '/reset');
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
