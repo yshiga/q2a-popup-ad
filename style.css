@@ -33,8 +33,8 @@
 
 div.popup {
 	background: #fff;
-	padding: 25px;
 	box-shadow: 0 3px 10px #222;
+	border-radius: 3px;
 }
 
 .preloader {
@@ -42,4 +42,27 @@ div.popup {
 	margin: -10px 0 0 -25px;
 	position: fixed;
 	top: 50%;
+}
+
+/*---- koyama edit */
+div.popup_content {
+	height: auto !important;
+}
+.popup .photo {
+	border-radius: 3px 0 0 3px;
+}
+.popup .mdl-typography--headline {
+	font-weight: bold;
+}
+.popup .mdl-button {
+	width: 80%;
+	margin: 6px auto;
+	display: inline-block;
+}
+.popup .mdl-cell--7-col {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 32px 16px;
 }
