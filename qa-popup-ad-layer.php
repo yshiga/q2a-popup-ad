@@ -28,11 +28,13 @@ class qa_html_theme_layer extends qa_html_theme_base
 		$js = file_get_contents(POPAD_DIR . '/ad.js');
 		$html = file_get_contents(POPAD_DIR . '/ad.html');
 		$html = str_replace(PHP_EOL, '', $html);
+		$percentage = qa_opt('qa_popup_ad_scroll_percentage');
 		$params = array(
 			'^html' => $html,
 			'^box_width' => '700',
 			'^box_height' => '430',
-			'^percentage' => 0
+			'^percentage' => (!empty($percentage) ? (int)$percentage : 0),
+			'^window' => '".mdl-layout__content"',
 		);
 		$js = strtr($js, $params);
 		$this->output($js);
@@ -58,6 +60,11 @@ class qa_html_theme_layer extends qa_html_theme_base
 	{
 		$blackList = array('/ask', '/login', '/reset');
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		
+		// モバイルまたはタブレットでは表示しない
+		if ($this->is_mobile_or_tablet()) {
+			return false;
+		}
 
 		if (in_array($path, $blackList)) {
 			return false;
@@ -96,5 +103,18 @@ class qa_html_theme_layer extends qa_html_theme_base
 				return false;
 			}
 		}
+	}
+	
+	private function is_mobile_or_tablet()
+	{
+		// qa_is_mobile_probably()がiPadをPC扱い
+		// Androidは別のカスタマイズでPC扱い
+		// ココではモバイルと同じ扱いにしたい
+		$loweragent = strtolower(@$_SERVER['HTTP_USER_AGENT']);
+		if (strpos($loweragent, 'ipad') !== false
+			|| strpos($loweragent, 'android') !== false) {
+				return true;
+		}
+		return qa_is_mobile_probably();
 	}
 }
