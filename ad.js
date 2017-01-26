@@ -10,7 +10,7 @@ $(document).ready(function () {
 		popup.open('^html', 'html');
 		popupflg = true;
 	}
-	$(window).scroll(function (e) {
+	$(^window).scroll(function (e) {
 		var window = $(e.currentTarget),
 		scrollTop = window.scrollTop(),
 		documentHeight = $(document).height();
