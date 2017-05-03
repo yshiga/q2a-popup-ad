@@ -15,6 +15,8 @@ class qa_popup_ad_admin
 				return true;
 			case 'qa_popup_ad_scroll_percentage':
 				return 0;
+			case 'qa-popup_ad_show_mobile':
+				return false;
 			default:
 				return;
 		}
@@ -33,6 +35,7 @@ class qa_popup_ad_admin
 			qa_opt('qa_popup_ad_only_first_access', (bool)qa_post_text('qa_popup_ad_only_first_access'));
 			qa_opt('qa_popup_ad_show_logged_in', (bool)qa_post_text('qa_popup_ad_show_logged_in'));
 			qa_opt('qa_popup_ad_scroll_percentage', qa_post_text('qa_popup_ad_scroll_percentage'));
+			qa_opt('qa_popup_ad_show_mobile', (bool)qa_post_text('qa_popup_ad_show_mobile'));
 			$ok = qa_lang('admin/options_saved');
 		}
 
@@ -51,6 +54,13 @@ class qa_popup_ad_admin
 			'type' => 'checkbox',
 			'value' => qa_opt('qa_popup_ad_show_logged_in'),
 			'tags' => 'name="qa_popup_ad_show_logged_in"',
+		);
+
+		$fields[] = array(
+			'label' => qa_lang('qa_popup_ad_lang/show_mobile'),
+			'type' => 'checkbox',
+			'value' => qa_opt('qa_popup_ad_show_mobile'),
+			'tags' => 'name="qa_popup_ad_show_mobile"',
 		);
 
 		$fields[] = array(

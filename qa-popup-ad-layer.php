@@ -60,9 +60,9 @@ class qa_html_theme_layer extends qa_html_theme_base
 	{
 		$blackList = array('/ask', '/login', '/reset');
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-		
+		$show_mobile = qa_opt('qa_popup_ad_show_mobile');
 		// モバイルまたはタブレットでは表示しない
-		if ($this->is_mobile_or_tablet()) {
+		if (!$show_mobile && $this->is_mobile_or_tablet()) {
 			return false;
 		}
 
