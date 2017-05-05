@@ -23,6 +23,7 @@
 		'content_html' => '表示内容 HTML ^1:',
 		'exclude_page' => '表示しないページ(改行区切りで入力):',
 		'pixels' => 'ピクセル',
+		'show_mobile' => 'モバイル、タブレットでも表示する',
 	);
 
 
