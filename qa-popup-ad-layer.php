@@ -28,13 +28,13 @@ class qa_html_theme_layer extends qa_html_theme_base
 		$js = file_get_contents(POPAD_DIR . '/ad.js');
 		$html = file_get_contents(POPAD_DIR . '/ad.html');
 		$html = str_replace(PHP_EOL, '', $html);
-		$percentage = qa_opt('qa_popup_ad_scroll_percentage');
+//		$percentage = qa_opt('qa_popup_ad_scroll_percentage');
 		$params = array(
 			'^html' => $html,
 			'^box_width' => '700',
 			'^box_height' => '430',
-			'^percentage' => (!empty($percentage) ? (int)$percentage : 0),
-			'^window' => '".mdl-layout__content"',
+//			'^percentage' => (!empty($percentage) ? (int)$percentage : 0),
+//			'^window' => '".mdl-layout__content"',
 		);
 		$js = strtr($js, $params);
 		$this->output($js);
