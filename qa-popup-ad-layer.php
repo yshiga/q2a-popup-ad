@@ -26,8 +26,17 @@ class qa_html_theme_layer extends qa_html_theme_base
 		$library_src = qa_opt('site_url').$this->plugin_url.'/vender/popup.js';
 		$this->output('<script type="text/javascript" src="'.$library_src.'"></script>');
 		$js = file_get_contents(POPAD_DIR . '/ad.js');
-		$html = file_get_contents(POPAD_DIR . '/ad.html');
-		$html = str_replace(PHP_EOL, '', $html);
+		$html_tmpl = file_get_contents(POPAD_DIR . '/ad.html');
+		$html_tmpl = str_replace(PHP_EOL, '', $html_tmpl);
+		$subs = array(
+			'^ad_title' => qa_lang('qa_popup_ad_lang/ad_title'),
+			'^ad_content' => qa_lang('qa_popup_ad_lang/ad_content'),
+			'^regist_facebook' => qa_lang('qa_popup_ad_lang/regist_facebook'),
+			'^regist_twitter' => qa_lang('qa_popup_ad_lang/regist_twitter'),
+			'^regist_google' => qa_lang('qa_popup_ad_lang/regist_google'),
+			'^regist_email' => qa_lang('qa_popup_ad_lang/regist_email'),
+		);
+		$html = strtr($html_tmpl, $subs);
 		$percentage = qa_opt('qa_popup_ad_scroll_percentage');
 		$params = array(
 			'^html' => $html,

@@ -24,6 +24,12 @@
 		'exclude_page' => '表示しないページ(改行区切りで入力):',
 		'pixels' => 'ピクセル',
 		'show_mobile' => 'モバイル、タブレットでも表示する',
+		'ad_title' => '日本最大級の<br>ミツバチコミュニティー',
+		'ad_content' => '<strong>2800人</strong>以上の人が登録し、<br>すでに<strong>1940件以上</strong>の回答が寄せられています。<br>ぜひあなたも登録してください。',
+		'regist_facebook' => 'Facebookで会員登録',
+		'regist_twitter' => 'Twitterで会員登録',
+		'regist_google' => 'Googleで会員登録',
+		'regist_email' => 'メールアドレスから会員登録',
 	);
 
 
