@@ -4,20 +4,23 @@ $(document).ready(function () {
 		width : ^box_width,
 		height: ^box_height
 	});
+        popupHtml = '^html';
+        
 	percentage = ^percentage;
+        documentHeight = $(document).height();
+        scrollHeight = documentHeight * (percentage / 100)
+
 	popupflg = false;
 	if (percentage <= 0) {
-		popup.open('^html', 'html');
+		popup.open(popupHtml, 'html');
 		popupflg = true;
 	}
 	$(^window).scroll(function (e) {
-		var window = $(e.currentTarget),
-		scrollTop = window.scrollTop(),
-		documentHeight = $(document).height();
-		scrollHeight = documentHeight * (percentage / 100)
+		var window = $(e.currentTarget);
+		var scrollTop = window.scrollTop();
 
 		if ( !popupflg && scrollHeight <= scrollTop) {
-			popup.open('^html', 'html');
+			popup.open(popupHtml, 'html');
 			popupflg = true;
 		}
 	});
