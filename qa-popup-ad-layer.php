@@ -37,6 +37,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 			'^regist_twitter' => qa_lang('qa_popup_ad_lang/regist_twitter'),
 			'^regist_google' => qa_lang('qa_popup_ad_lang/regist_google'),
 			'^regist_email' => qa_lang('qa_popup_ad_lang/regist_email'),
+			'^ask' => qa_lang('qa_popup_ad_lang/ask'),
 		);
 		$html = strtr($html_tmpl, $subs);
 		$percentage = qa_opt('qa_popup_ad_scroll_percentage');
@@ -94,6 +95,9 @@ class qa_html_theme_layer extends qa_html_theme_base
 		if(!empty($userid)) {
 			$ratio = 15;
 		}
+
+		// $ratio = 1 ; // debug
+
 		$tmp = $rand % $ratio;
 		if($tmp == 0) {
 			// 直近投稿しているユーザーには表示しない
