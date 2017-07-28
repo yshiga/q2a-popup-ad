@@ -21,6 +21,8 @@ $(document).ready(function () {
 
 		if ( !popupflg && scrollHeight <= scrollTop) {
 			popup.open(popupHtml, 'html');
+			window['optimizely'] = window['optimizely'] || [];
+			window.optimizely.push(["trackEvent", "popup_show_" + percentage]); 
 			popupflg = true;
 		}
 	});
