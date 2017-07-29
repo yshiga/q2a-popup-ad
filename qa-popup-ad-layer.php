@@ -73,8 +73,9 @@ class qa_html_theme_layer extends qa_html_theme_base
 		$blackList = array('/ask', '/login', '/reset', '/register');
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$show_mobile = qa_opt('qa_popup_ad_show_mobile');
-		// モバイルまたはタブレットでは表示しない
-		if (!$show_mobile && $this->is_mobile_or_tablet()) {
+
+		// モバイルでは表示しない
+		if (!$show_mobile && qa_is_mobile_probably()) {
 			return false;
 		}
 
@@ -105,7 +106,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 				return false;
 			}
 			return true;
-                }
+		}
 
 		return false;
 	}
@@ -143,8 +144,7 @@ class qa_html_theme_layer extends qa_html_theme_base
        		$count = qa_db_read_one_value(qa_db_query_sub($sql, $userid, $day));
 		return ($count > $min);
 	}
- 
-	
+
 	private function is_mobile_or_tablet()
 	{
 		// qa_is_mobile_probably()がiPadをPC扱い
