@@ -5,7 +5,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 	public $plugin_url;
 
 	// needed to get the plugin url
-	public function qa_html_theme_layer($template, $content, $rooturl, $request)
+	public function __construct($template, $content, $rooturl, $request)
 	{
 		qa_html_theme_base::qa_html_theme_base($template, $content, $rooturl, $request);
 		if (!$this->shouldShowPopup()) {
