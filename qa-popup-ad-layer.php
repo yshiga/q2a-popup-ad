@@ -6,7 +6,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 	private $should_show_popup = false;
 
 	// needed to get the plugin url
-	public function qa_html_theme_layer($template, $content, $rooturl, $request)
+	public function __construct($template, $content, $rooturl, $request)
 	{
 		$this->should_show_popup = $this->shouldShowPopup();
 		qa_html_theme_base::qa_html_theme_base($template, $content, $rooturl, $request);
