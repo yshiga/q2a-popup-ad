@@ -1,0 +1,12 @@
+{
+	"name": "POPUP AD",
+	"uri": "",
+	"description": "Popup ad",
+	"version": "0.1",
+	"date": "2015-09-11",
+	"author": "yshiga",
+	"author_uri": "https://github.com/yshiga",
+	"license": "GPLv2",
+	"update_uri": "",
+	"min_q2a": "1.7"
+}
