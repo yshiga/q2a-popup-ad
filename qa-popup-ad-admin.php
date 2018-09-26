@@ -36,6 +36,11 @@ class qa_popup_ad_admin
 			qa_opt('qa_popup_ad_show_logged_in', (bool)qa_post_text('qa_popup_ad_show_logged_in'));
 			qa_opt('qa_popup_ad_scroll_percentage', qa_post_text('qa_popup_ad_scroll_percentage'));
 			qa_opt('qa_popup_ad_show_mobile', (bool)qa_post_text('qa_popup_ad_show_mobile'));
+			qa_opt('qa_popup_ad_image_url', qa_post_text('qa_popup_ad_image_url'));
+			qa_opt('qa_popup_ad_title', qa_post_text('qa_popup_ad_title'));
+			qa_opt('qa_popup_ad_content', qa_post_text('qa_popup_ad_content'));
+			qa_opt('qa_popup_ad_btn_label', qa_post_text('qa_popup_ad_btn_label'));
+			qa_opt('qa_popup_ad_btn_link', qa_post_text('qa_popup_ad_btn_link'));
 			$ok = qa_lang('admin/options_saved');
 		}
 
@@ -69,6 +74,46 @@ class qa_popup_ad_admin
 			'suffix' => '%(0-100)',
 			'value' => qa_opt('qa_popup_ad_scroll_percentage'),
 			'tags' => 'name="qa_popup_ad_scroll_percentage"',
+		);
+
+		$fields[] = array(
+			'type' => 'blank',
+		);
+
+		$fields[] = array(
+			'label' => qa_lang('qa_popup_ad_lang/image_url'),
+			'type' => 'text',
+			'value' => qa_opt('qa_popup_ad_image_url'),
+			'tags' => 'name="qa_popup_ad_image_url"',
+		);
+
+		$fields[] = array(
+			'label' => qa_lang('qa_popup_ad_lang/opt_title'),
+			'type' => 'text',
+			'value' => qa_opt('qa_popup_ad_title'),
+			'tags' => 'name="qa_popup_ad_title"',
+		);
+
+		$fields[] = array(
+			'label' => qa_lang('qa_popup_ad_lang/opt_content'),
+			'type' => 'textarea',
+			'rows' => 3,
+			'value' => qa_opt('qa_popup_ad_content'),
+			'tags' => 'name="qa_popup_ad_content"',
+		);
+
+		$fields[] = array(
+			'label' => qa_lang('qa_popup_ad_lang/btn_label'),
+			'type' => 'text',
+			'value' => qa_opt('qa_popup_ad_btn_label'),
+			'tags' => 'name="qa_popup_ad_btn_label"',
+		);
+
+		$fields[] = array(
+			'label' => qa_lang('qa_popup_ad_lang/btn_link'),
+			'type' => 'text',
+			'value' => qa_opt('qa_popup_ad_btn_link'),
+			'tags' => 'name="qa_popup_ad_btn_link"',
 		);
 
 		return array(

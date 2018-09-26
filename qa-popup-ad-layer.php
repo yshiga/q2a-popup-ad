@@ -31,13 +31,15 @@ class qa_html_theme_layer extends qa_html_theme_base
 		$html_tmpl = file_get_contents(POPAD_DIR . '/ad.html');
 		$html_tmpl = str_replace(PHP_EOL, '', $html_tmpl);
 		$subs = array(
-			'^ad_title' => qa_lang('qa_popup_ad_lang/ad_title'),
-			'^ad_content' => qa_lang('qa_popup_ad_lang/ad_content'),
+			'^image_url'  => qa_opt('qa_popup_ad_image_url'),
+			'^ad_title'   => qa_opt('qa_popup_ad_title'),
+			'^ad_content' => qa_opt('qa_popup_ad_content'),
+			'^btn_link'  => qa_opt('qa_popup_ad_btn_link'),
+			'^btn_label'  => qa_opt('qa_popup_ad_btn_label'),
 			'^regist_facebook' => qa_lang('qa_popup_ad_lang/regist_facebook'),
 			'^regist_twitter' => qa_lang('qa_popup_ad_lang/regist_twitter'),
 			'^regist_google' => qa_lang('qa_popup_ad_lang/regist_google'),
 			'^regist_email' => qa_lang('qa_popup_ad_lang/regist_email'),
-			'^ask' => qa_lang('qa_popup_ad_lang/ask'),
 		);
 		$html = strtr($html_tmpl, $subs);
 		$percentage = qa_opt('qa_popup_ad_scroll_percentage');
