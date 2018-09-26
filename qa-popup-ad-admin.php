@@ -97,7 +97,7 @@ class qa_popup_ad_admin
 		$fields[] = array(
 			'label' => qa_lang('qa_popup_ad_lang/opt_content'),
 			'type' => 'textarea',
-			'rows' => 2,
+			'rows' => 3,
 			'value' => qa_opt('qa_popup_ad_content'),
 			'tags' => 'name="qa_popup_ad_content"',
 		);
