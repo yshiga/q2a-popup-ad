@@ -72,41 +72,27 @@ class qa_html_theme_layer extends qa_html_theme_base
 
 	private function shouldShowPopup()
 	{
-		$blackList = array('/ask', '/login', '/reset', '/register');
+		$blackList = array('/ask', '/login', '/reset', '/register', '/blog/new');
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-		$show_mobile = qa_opt('qa_popup_ad_show_mobile');
 
-		// モバイルでは表示しない
-		if (!$show_mobile && qa_is_mobile_probably()) {
+		// モバイルでは表示しない(オプションに従う)
+		if (!(bool)qa_opt('qa_popup_ad_show_mobile') && qa_is_mobile_probably()) {
 			return false;
 		}
 
+		// 表示しないページ
 		if (in_array($path, $blackList)) {
 			return false;
 		}
 
-//		if ( !(bool)qa_opt('qa_popup_ad_show_logged_in') && qa_is_logged_in() ) {
-//			return false;
-//		}
-
-//		if ( !(bool)qa_opt('qa_popup_ad_only_first_access') ) {
-//			return true;
-//		}
-		$rand = rand(1,100);
-		$ratio = 5;
-		$userid = qa_get_logged_in_userid();
-		if(!empty($userid)) {
-			$ratio = 15;
+		// ログインユーザーには表示しない(オプションに従う)
+		if ( !(bool)qa_opt('qa_popup_ad_show_logged_in') && qa_is_logged_in() ) {
+			return false;
 		}
 
-		// $ratio = 1 ; // debug
-
-		$tmp = $rand % $ratio;
-		if($tmp == 0) {
-			// 直近投稿しているユーザーには表示しない
-			if(!empty($userid) && $this->is_post_recently($userid)) {
-				return false;
-			}
+		if($this->isJustLand()) {
+			return true;
+		} else if (!(bool)qa_opt('qa_popup_ad_only_first_access') ) {
 			return true;
 		}
 
