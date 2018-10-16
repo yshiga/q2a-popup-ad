@@ -48,7 +48,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 			'^box_width' => '700',
 			'^box_height' => '430',
 			'^percentage' => (!empty($percentage) ? (int)$percentage : 0),
-			'^window' => '".mdl-layout__content"',
+			'^window' => 'window',
 		);
 		$js = strtr($js, $params);
 		$this->output($js);
