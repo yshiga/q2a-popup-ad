@@ -72,7 +72,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 
 	private function shouldShowPopup()
 	{
-		$blackList = array('/ask', '/login', '/reset', '/register', '/blog/new');
+		$blackList = array('/ask', '/login', '/reset', '/register', '/blog/new', '/forgot');
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 		// モバイルでは表示しない(オプションに従う)
